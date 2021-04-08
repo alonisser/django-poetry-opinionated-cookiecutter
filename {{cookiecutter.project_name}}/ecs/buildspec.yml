@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo pre_build started on `date`
+      - $(aws ecr get-login --no-include-email --region "$AWS_REGION")
+      - $(echo "$DOCKERHUB_CREDS" | sed 's/:/ /' | xargs printf "docker login -u %s -p %s")
+
+  build:
+    commands:
+      - echo build started on `date`
+      - docker build -t app -f ecs/Dockerfile .
+
+  post_build:
+    commands:
+      - echo post_build started on `date`
+      - bash -cxe '
+        IMAGES=(app);
+        LATEST="$(echo "$CODEBUILD_RESOLVED_SOURCE_VERSION" | cut -c 1-8)";
+        for I in "${!IMAGES[@]}"; do
+          IMAGE="${IMAGES[I]}";
+          for TAG in latest "$LATEST"; do
+            docker tag "$IMAGE" "$REPOSITORY_URL:$IMAGE.$TAG";
+            docker push "$REPOSITORY_URL:$IMAGE.$TAG";
+          done;
+        done;
+        '
