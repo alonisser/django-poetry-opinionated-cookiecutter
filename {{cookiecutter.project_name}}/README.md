@@ -72,4 +72,17 @@ We are currently using postgres. You need to set up a user,
    python manage.py runserver
    ```
  
+### tests
+
+```bash
+poetry run python manage.py test
+```
+
+## Setup for use in local environment as a "black box"
+e.g when you work on the frontend
+
+```bash
+docker-compose up
+```
+First run would be quite long because of docker building
 

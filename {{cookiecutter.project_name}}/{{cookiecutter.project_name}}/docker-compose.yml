@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_{{project_name|replace('-','_')}}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./nginx_compose:/etc/nginx/conf.d
+      - /static:/static
+    depends_on:
+      - web
+  db:
+    image: postgres
+    container_name: postgres_{{project_name|replace('-','_')}}
+    environment:
+      - POSTGRES_DB={{cookiecutter.project_name}}_db
+      - POSTGRES_USER={{cookiecutter.project_name}}_user
+      - POSTGRES_PASSWORD={{cookiecutter.project_name}}_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+  web:
+    build:
+      context: .
+      dockerfile: ecs/Dockerfile
+
+    environment:
+      - DJANGO_ALLOWED_HOSTS=web
+      - DJANGO_CONFIGURATION=Development
+      - DJANGO_SETTINGS_MODULE={{cookiecutter.project_name}}.settings
+      - DATABASE_URL=postgresql://{{cookiecutter.project_name}}_user:{{cookiecutter.project_name}}_pass@db/{{cookiecutter.project_name}}_db
+    command:
+      - bash
+      - -c
+      - |
+        ./manage.py migrate
+        ./manage.py createsuperuser --username admin --email admin@admin.com --noinput && cat <<-000 | ./manage.py shell
+        from django.contrib.auth import get_user_model
+        admin = get_user_model().objects.get(username='admin')
+        admin.set_password('admin')
+        admin.save()
+        print('Superuser password updated successfully.')
+        000
+        cp /srv/app/static/* -r /static/
+        gunicorn {{cookiecutter.project_name}}.wsgi --timeout 180 --bind 0.0.0.0
+
+    volumes:
+      - /static:/static
+    expose:
+      - "8000"
+
+    depends_on:
+      - db
