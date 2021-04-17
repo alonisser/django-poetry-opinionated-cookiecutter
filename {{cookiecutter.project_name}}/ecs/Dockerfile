@@ -1,8 +1,7 @@
-FROM python:3.8.1-slim-buster
+FROM python:3.8-slim-buster
 
 RUN set -ex \
-&&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh \
-&&  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDc2I+CjNv6S9Yi9IdaPUuXN6mna86UqOcz0lW+3HDN0' >~/.ssh/authorized_keys
+&&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh
 
 COPY poetry.lock pyproject.toml ./
 RUN set -ex \
