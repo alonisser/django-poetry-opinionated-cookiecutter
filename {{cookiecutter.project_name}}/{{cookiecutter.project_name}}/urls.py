@@ -14,8 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
+admin.site.site_header = "{{cookiecutter.project_name}} admin site"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-token-auth/', obtain_jwt_token, name="api-token-auth"),
+
 ]
+
+configuration_name = settings.CONFIGURATION.split(".")[-1]
+
+if configuration_name == "Development":
+    urlpatterns.extend([path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+                        # Optional UI:
+                        path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'),
+                             name='swagger-ui'),
+                        path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc')])
+
