@@ -31,6 +31,14 @@ class Base(Configuration):
     ALLOWED_HOSTS = values.ListValue([])  # Would be passed from above in the ecs task
     CORS_ALLOWED_ORIGINS = values.ListValue([])
     # Application definition
+    THIRD_PARTY_APPS = [
+        'corsheaders',
+        'rest_framework_jwt',
+        'rest_framework',
+        'django_extensions',
+        'import_export',
+        'drf_spectacular'
+    ]
     DJANGO_APPS = [
         'django.contrib.admin',
         'django.contrib.auth',
@@ -38,13 +46,6 @@ class Base(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-    ]
-    THIRD_PARTY_APPS = [
-        'corsheaders',
-        'rest_framework_jwt',
-        'rest_framework',
-        'django_extensions',
-        'import_export'
     ]
     {{cookiecutter.project_name|upper}}_APPS = []
     INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + {{cookiecutter.project_name|upper}}_APPS
@@ -154,17 +155,14 @@ class Base(Configuration):
 
 
 class Development(Base):
-    name = 'Development'
     CORS_ALLOW_ALL_ORIGINS = True
 
 
 class Staging(Base):
-    name = 'staging'
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
 
 
 class Production(Base):
-    name = 'Production'
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
