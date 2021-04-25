@@ -8,7 +8,7 @@ services:
       - "8000:8000"
     volumes:
       - ./nginx_compose:/etc/nginx/conf.d
-      - /static:/static
+      - ./data/static:/static
     depends_on:
       - web
   db:
@@ -36,8 +36,8 @@ services:
       - bash
       - -c
       - |
-        ./manage.py migrate
-        ./manage.py createsuperuser --username admin --email admin@admin.com --noinput && cat <<-000 | ./manage.py shell
+        python manage.py migrate
+        python manage.py createsuperuser --username admin --email admin@admin.com --noinput && cat <<-000 | python manage.py shell
         from django.contrib.auth import get_user_model
         admin = get_user_model().objects.get(username='admin')
         admin.set_password('admin')
@@ -48,7 +48,7 @@ services:
         gunicorn {{cookiecutter.project_name}}.wsgi --timeout 180 --bind 0.0.0.0
 
     volumes:
-      - /static:/static
+      - ./data/static:/static
     expose:
       - "8000"
 
