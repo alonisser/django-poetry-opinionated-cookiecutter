@@ -4,7 +4,7 @@ import os
 import sys
 
 os.environ.setdefault('DJANGO_CONFIGURATION', 'Development')
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_name}}.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_name|replace('-','_')}}.settings')
 
 if sys.argv[0] and sys.argv[0].find('django_test_manage.py'):
     import configurations
@@ -13,7 +13,7 @@ if sys.argv[0] and sys.argv[0].find('django_test_manage.py'):
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_name}}.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_name|replace('-','_')}}.settings')
     try:
         from configurations.management import execute_from_command_line
     except ImportError as exc:

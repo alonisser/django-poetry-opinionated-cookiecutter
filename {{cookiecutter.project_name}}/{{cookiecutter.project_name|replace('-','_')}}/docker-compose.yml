@@ -9,6 +9,7 @@ services:
     volumes:
       - ./nginx_compose:/etc/nginx/conf.d
       - ./data/static:/static
+      - ./data/media:/media
     depends_on:
       - web
   db:
@@ -30,7 +31,8 @@ services:
     environment:
       - DJANGO_ALLOWED_HOSTS=web
       - DJANGO_CONFIGURATION=Development
-      - DJANGO_SETTINGS_MODULE={{cookiecutter.project_name}}.settings
+      - DJANGO_MEDIA_ROOT=/media/
+      - DJANGO_SETTINGS_MODULE={{cookiecutter.project_name|replace('-','_')}}.settings
       - DATABASE_URL=postgresql://{{cookiecutter.project_name}}_user:{{cookiecutter.project_name}}_pass@db/{{cookiecutter.project_name}}_db
     command:
       - bash
@@ -49,6 +51,8 @@ services:
 
     volumes:
       - ./data/static:/static
+      - ./data/media:/media
+
     expose:
       - "8000"
 
