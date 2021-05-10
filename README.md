@@ -20,7 +20,9 @@
 
 * My very own: poor man's service locator, helping to provide abstraction
 
-* Deployable: Built in aws codebuild, Working dockerfile, nginx to serve static files
+* Deployable: Built in aws codebuild, Working dockerfile, nginx to serve static files, aws boto for s3 integration
+
+* health check endpoint 
 
 ## Expected configuration:
 - project_name in underscore format
