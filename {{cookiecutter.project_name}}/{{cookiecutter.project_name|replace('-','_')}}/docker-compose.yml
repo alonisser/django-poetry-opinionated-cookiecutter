@@ -29,7 +29,7 @@ services:
       dockerfile: ecs/Dockerfile
 
     environment:
-      - DJANGO_ALLOWED_HOSTS=web
+      - DJANGO_ALLOWED_HOSTS=web,localhost,127.0.0.1
       - DJANGO_CONFIGURATION=Development
       - DJANGO_MEDIA_ROOT=/media/
       - DJANGO_SETTINGS_MODULE={{cookiecutter.project_name|replace('-','_')}}.settings
