@@ -3,7 +3,7 @@ version: "3.9"
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx_{{project_name|replace('-','_')}}
+    container_name: nginx_{{cookiecutter.project_name|replace('-','_')}}
     ports:
       - "8000:8000"
     volumes:
@@ -14,7 +14,7 @@ services:
       - web
   db:
     image: postgres
-    container_name: postgres_{{project_name|replace('-','_')}}
+    container_name: postgres_{{cookiecutter.project_name|replace('-','_')}}
     environment:
       - POSTGRES_DB={{cookiecutter.project_name}}_db
       - POSTGRES_USER={{cookiecutter.project_name}}_user
