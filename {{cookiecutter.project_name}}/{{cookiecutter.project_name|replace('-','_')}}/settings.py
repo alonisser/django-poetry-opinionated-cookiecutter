@@ -148,6 +148,8 @@ class Base(Configuration):
 
     USE_TZ = True
 
+    USER_TZ = values.Value()
+
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.1/howto/static-files/
     STATIC_ROOT = BASE_DIR / 'static'
