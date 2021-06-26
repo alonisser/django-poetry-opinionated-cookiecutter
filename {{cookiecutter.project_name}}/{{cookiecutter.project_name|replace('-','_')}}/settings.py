@@ -170,8 +170,12 @@ class Development(Base):
 class Staging(Base):
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
+    AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
+
 
 
 class Production(Base):
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
+    AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
+
