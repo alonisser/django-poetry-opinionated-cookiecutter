@@ -31,4 +31,4 @@
 ## How to work with this
 
 1. ```pip install cookiecutter``` if not installed yet
-2. ```cookicutter https://github.com/alonisser/django-poetry-opinionated-cookiecutter```
+2. ```cookiecutter https://github.com/alonisser/django-poetry-opinionated-cookiecutter```
