@@ -33,7 +33,7 @@ class Base(Configuration):
     # Application definition
     THIRD_PARTY_APPS = [
         'corsheaders',
-        'rest_framework_jwt',
+        'rest_framework_simplejwt',
         'rest_framework',
         'django_extensions',
         'import_export',
