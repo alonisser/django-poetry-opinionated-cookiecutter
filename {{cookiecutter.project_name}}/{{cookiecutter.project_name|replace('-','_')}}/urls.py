@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from {{cookiecutter.project_name|replace('-','_')}} import views
 
@@ -25,8 +25,8 @@ admin.site.site_header = "{{cookiecutter.project_name}} admin site"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('health_check', views.healthcheck, name='healthcheck'),
-    path('api-token-auth/', obtain_jwt_token, name="api-token-auth"),
-
+    path('api-token-auth/', TokenObtainPairView.as_view(), name='api-token-obtain-pair'),
+    path('api-token-refresh/', TokenRefreshView.as_view(), name='api-token-refresh'),
 ]
 
 configuration_name = settings.CONFIGURATION.split(".")[-1]
