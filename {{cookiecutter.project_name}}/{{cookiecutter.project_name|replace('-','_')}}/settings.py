@@ -33,7 +33,7 @@ class Base(Configuration):
     # Application definition
     THIRD_PARTY_APPS = [
         'corsheaders',
-        'rest_framework_jwt',
+        'rest_framework_simplejwt',
         'rest_framework',
         'django_extensions',
         'import_export',
@@ -124,7 +124,7 @@ class Base(Configuration):
             'rest_framework.permissions.IsAuthenticated',
         ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
-            'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
         ),
         'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
         'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
