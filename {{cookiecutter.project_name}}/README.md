@@ -50,7 +50,8 @@ We are currently using postgres. You need to set up a user,
     CREATE DATABASE {{cookiecutter.project_name}}_db;
     CREATE USER {{cookiecutter.project_name}}_user WITH PASSWORD '{{cookiecutter.project_name}}_pass';
     ALTER ROLE {{cookiecutter.project_name}}_user SET client_encoding TO 'utf8';
-    GRANT ALL PRIVILEGES ON DATABASE {{cookiecutter.project_name}}_db TO {{cookiecutter.project_name}}_user;       
+    GRANT ALL PRIVILEGES ON DATABASE {{cookiecutter.project_name}}_db TO {{cookiecutter.project_name}}_user;
+    ALTER ROLE {{cookiecutter.project_name}}_user CREATEDB;
    ```
    * to exit postgres cli:   
    `Ctrl+D`
