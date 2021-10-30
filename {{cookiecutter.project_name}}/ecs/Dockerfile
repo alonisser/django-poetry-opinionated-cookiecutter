@@ -10,10 +10,14 @@ RUN set -ex \
     # install system runtime deps
 &&  apt install -y libpq-dev \
     # install python app requirements
-&&  pip install poetry && poetry export >requirements.txt \
-&&  pip install -r requirements.txt && rm -rf ~/.cache poetry.lock pyproject.toml requirements.txt \
+&&  pip install poetry \
+
+RUN poetry config virtualenvs.create false \
+  && poetry install --no-interaction --no-ansi
+
+RUN rm -rf ~/.cache poetry.lock pyproject.toml \
     # remove system build deps
-&&  apt purge -y --autoremove gcc
+  &&  apt purge -y --autoremove gcc
 
 WORKDIR /srv/app
 COPY . .
