@@ -14,16 +14,21 @@
 
 * Django's goodies: [django-storages](https://django-storages.readthedocs.io/en/latest/) for storage backends. django-extensions, django-import-export plugin for the admin
 
-* Cors middleware and querycount middleware, timezone middleware
+* Cors middleware and [querycount](https://github.com/bradmontgomery/django-querycount) middleware, timezone middleware
 
-* Django rest framework for api
+* [Django rest framework](https://www.django-rest-framework.org/) for api
 
 * My very own: poor man's service locator, helping to provide abstraction
 
 * Deployable: Built in aws codebuild, Working dockerfile, nginx to serve static files, aws boto for s3 integration
 
 * health check endpoint 
+### Easy local development for frontend users
 
+Ability to run this whole project with 
+```bash
+docker-compose up --build
+```
 ## Expected configuration:
 - project_name in underscore format
 - git_repo link
