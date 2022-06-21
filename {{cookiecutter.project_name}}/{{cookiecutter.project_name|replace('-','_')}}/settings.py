@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -136,6 +136,11 @@ class Base(Configuration):
         'PAGE_SIZE': 30
     }
 
+    SIMPLE_JWT = {
+        # Consider customizing other stuff here: https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html
+        "ACCESS_TOKEN_LIFETIME": datetime.timedelta(days=30)
+    }
+
     # Internationalization
     # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -160,12 +165,12 @@ class Base(Configuration):
     MEDIA_ROOT = values.Value(BASE_DIR / 'media')
     MEDIA_URL = '/media/'
 
+
 class Development(Base):
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = values.ListValue(["web", "localhost", "127.0.0.1"])
 
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-
 
 
 class Staging(Base):
@@ -174,9 +179,7 @@ class Staging(Base):
     AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
 
 
-
 class Production(Base):
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
     AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
-
