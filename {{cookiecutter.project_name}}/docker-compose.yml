@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 
 services:
   nginx:
@@ -13,7 +13,7 @@ services:
     depends_on:
       - web
   db:
-    image: postgres
+    image: postgres:13
     container_name: postgres_{{cookiecutter.project_name|replace('-','_')}}
     environment:
       - POSTGRES_DB={{cookiecutter.project_name}}_db
