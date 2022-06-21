@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.9-slim-bullseye
 
 RUN set -ex \
 &&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh
@@ -10,7 +10,7 @@ RUN set -ex \
     # install system runtime deps
 &&  apt install -y libpq-dev \
     # install python app requirements
-&&  pip install poetry \
+&&  pip install poetry
 
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
