@@ -8,7 +8,7 @@ Django configurations for settings file
 Common practice middlewares (timezones, querycount)
 
 ## setup
-## Setup for development
+### Setup for development
 
 1. Python virtual environment:   
 We are using poetry to manage the projects dependencies.   
@@ -87,3 +87,10 @@ docker-compose up
 ```
 First run would be quite long because of docker building
 
+Postgres has some issues currently with start order, so if you see errors in the logs,
+just restart the compose a few times until it work
+
+
+### CI
+Depends on where you run, we support an initial github actions CI out of the box -declared [here](./.github/workflows/ci.yml) and 
+a full amazon environment with codebuild buildspec [file](./ecs/buildspec.yml) 

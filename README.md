@@ -23,6 +23,7 @@
 * Deployable: Built in aws codebuild, Working dockerfile, nginx to serve static files, aws boto for s3 integration
 
 * health check endpoint 
+* Ready with initial ci for github actions or codebuild aws ci
 ### Easy local development for frontend users
 
 Ability to run this whole project with 
