@@ -7,7 +7,9 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [ 3.9 ]
-    container: python:${{ "{{" }} matrix.python-version {{ "}}" }}-buster
+        {% raw %}
+    container: python:${{ matrix.python-version }}-buster
+        {% endraw %}
     services:
       # Label used to access the service container
       postgres:
