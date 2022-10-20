@@ -33,9 +33,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Install Poetry
         run: |
-            curl -fsS -o get-poetry.py https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py
+            curl -fsS -o get-poetry.py https://install.python-poetry.org
             python get-poetry.py -y
-            echo "$HOME/.poetry/bin" >> $GITHUB_PATH
+            echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install dependencies
         run: poetry install --no-interaction
       - name: Run tests
