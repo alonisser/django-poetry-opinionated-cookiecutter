@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/{{cookiecutter.project_name}}"
+    schedule:
+      interval: "weekly"
