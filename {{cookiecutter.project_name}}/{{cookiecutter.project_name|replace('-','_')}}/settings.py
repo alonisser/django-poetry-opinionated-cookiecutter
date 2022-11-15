@@ -47,8 +47,8 @@ class Base(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
     ]
-    {{cookiecutter.project_name|upper}}_APPS = []
-    INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + {{cookiecutter.project_name|upper}}_APPS
+    {{cookiecutter.project_name|replace('-','_')|upper}}_APPS = []
+    INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + {{cookiecutter.project_name|replace('-','_')|upper}}_APPS
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -59,7 +59,7 @@ class Base(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        '{{cookiecutter.project_name|replace('-','_')}}.middleware.TimezoneMiddleware',
+        "{{cookiecutter.project_name|replace('-','_')}}.middleware.TimezoneMiddleware",
         'querycount.middleware.QueryCountMiddleware'
 
     ]
@@ -76,7 +76,7 @@ class Base(Configuration):
         'RESPONSE_HEADER': None
     }
 
-    ROOT_URLCONF = '{{cookiecutter.project_name|replace('-','_')}}.urls'
+    ROOT_URLCONF = "{{cookiecutter.project_name|replace('-','_')}}.urls"
 
     TEMPLATES = [
         {
@@ -94,12 +94,12 @@ class Base(Configuration):
         },
     ]
 
-    WSGI_APPLICATION = '{{cookiecutter.project_name|replace('-','_')}}.wsgi.application'
+    WSGI_APPLICATION = "{{cookiecutter.project_name|replace('-','_')}}.wsgi.application"
 
     # Database
     # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-    DATABASES = values.DatabaseURLValue('postgresql://{{cookiecutter.project_name}}_user:{{cookiecutter.project_name}}_pass@127.0.0.1:5432/{{cookiecutter.project_name}}_db')
+    DATABASES = values.DatabaseURLValue("postgresql://{{cookiecutter.project_name|replace('-','_')}}_user:{{cookiecutter.project_name|replace('-','_')}}_pass@127.0.0.1:5432/{{cookiecutter.project_name|replace('-','_')}}_db")
 
     # Password validation
     # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

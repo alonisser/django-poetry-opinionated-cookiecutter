@@ -16,9 +16,9 @@ services:
     image: postgres:13
     container_name: postgres_{{cookiecutter.project_name|replace('-','_')}}
     environment:
-      - POSTGRES_DB={{cookiecutter.project_name}}_db
-      - POSTGRES_USER={{cookiecutter.project_name}}_user
-      - POSTGRES_PASSWORD={{cookiecutter.project_name}}_pass
+      - POSTGRES_DB={{cookiecutter.project_name|replace('-','_')}}_db #todo
+      - POSTGRES_USER={{cookiecutter.project_name|replace('-','_')}}_user
+      - POSTGRES_PASSWORD={{cookiecutter.project_name|replace('-','_')}}_pass
     ports:
       - "5433:5432"
     volumes:
@@ -33,7 +33,7 @@ services:
       - DJANGO_CONFIGURATION=Development
       - DJANGO_MEDIA_ROOT=/media/
       - DJANGO_SETTINGS_MODULE={{cookiecutter.project_name|replace('-','_')}}.settings
-      - DATABASE_URL=postgresql://{{cookiecutter.project_name}}_user:{{cookiecutter.project_name}}_pass@db/{{cookiecutter.project_name}}_db
+      - DATABASE_URL=postgresql://{{cookiecutter.project_name|replace('-','_')}}_user:{{cookiecutter.project_name|replace('-','_')}}_pass@db/{{cookiecutter.project_name|replace('-','_')}}_db
     command:
       - bash
       - -c
@@ -47,7 +47,7 @@ services:
         print('Superuser password updated successfully.')
         000
         cp /srv/app/static/* -r /static/
-        gunicorn {{cookiecutter.project_name}}.wsgi --timeout 180 --bind 0.0.0.0
+        gunicorn {{cookiecutter.project_name|replace('-','_')}}.wsgi --timeout 180 --bind 0.0.0.0
 
     volumes:
       - ./data/static:/static
