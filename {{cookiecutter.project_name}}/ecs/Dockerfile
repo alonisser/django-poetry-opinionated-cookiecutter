@@ -13,9 +13,8 @@ RUN set -ex \
 &&  pip install poetry
 
 RUN poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi
-
-RUN rm -rf ~/.cache poetry.lock pyproject.toml \
+  && poetry install --no-interaction --no-ansi  \
+  &&  rm -rf ~/.cache poetry.lock pyproject.toml \
     # remove system build deps
   &&  apt purge -y --autoremove gcc
 
