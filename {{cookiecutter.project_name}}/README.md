@@ -100,3 +100,7 @@ just restart the compose a few times until it work
 ### CI
 Depends on where you run, we support an initial github actions CI out of the box -declared [here](./.github/workflows/ci.yml) and 
 a full amazon environment with codebuild buildspec [file](./ecs/buildspec.yml) 
+
+## Not included libraries you might consider adding
+* [Django nested inlines](https://github.com/s-block/django-nested-inline) for "nesting inlines" in the admin
+* [Celery](https://docs.celeryq.dev/en/stable/) for async, scheduled or "out of request/response cycle" behavior

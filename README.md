@@ -12,7 +12,10 @@
 
 * [Gunicorn](https://gunicorn.org/) for production serving
 
-* Django's goodies: [django-storages](https://django-storages.readthedocs.io/en/latest/) for storage backends. django-extensions, django-import-export plugin for the admin
+* Django's goodies including:
+  * [django-storages](https://django-storages.readthedocs.io/en/latest/) for storage backends.
+  * [django-extensions](https://django-extensions.readthedocs.io/en/stable/).
+  * [django-import-export](https://django-import-export.readthedocs.io/en/stable/) plugin for the admin
 
 * Cors middleware and [querycount](https://github.com/bradmontgomery/django-querycount) middleware, timezone middleware
 
