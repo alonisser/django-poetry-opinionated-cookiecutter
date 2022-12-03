@@ -78,6 +78,12 @@ We are currently using postgres. You need to set up a user,
 ```bash
 poetry run python manage.py test
 ```
+## Production
+
+Ready to run as container (see dockerfile). Environment is determined by DJANGO_CONFIGURATION env variable
+which maps to class in settings.py. Note that in non local dev environments DEBUG=False so django won't magically serve statics
+You can use Nginx for that (before the django service, see, the [nginx.conf](./ecs/nginx.conf) for a reference)
+or install [whitenoise](https://whitenoise.evans.io/) and add it as a middleware. This is a common pattern for PAAS deployments
 
 ## Setup for use in local environment as a "black box"
 e.g when you work on the frontend
