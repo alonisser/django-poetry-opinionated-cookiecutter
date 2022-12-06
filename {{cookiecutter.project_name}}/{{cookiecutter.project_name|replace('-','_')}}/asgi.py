@@ -1,5 +1,5 @@
 """
-ASGI config for {{cookiecutter.project_name|replace('-','_')}} project.
+ASGI config for {{cookiecutter.project_slug}} project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,7 +11,7 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_name|replace('-','_')}}.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', '{{cookiecutter.project_slug}}.settings')
 os.environ.setdefault('DJANGO_CONFIGURATION', 'Development')
 
 application = get_asgi_application()
