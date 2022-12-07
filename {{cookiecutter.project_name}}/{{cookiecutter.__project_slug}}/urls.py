@@ -1,4 +1,4 @@
-"""{{cookiecutter.project_slug}} URL Configuration
+"""{{cookiecutter.__project_slug}} URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from {{cookiecutter.project_slug}} import views
+from {{cookiecutter.__project_slug}} import views
 
 admin.site.site_header = "{{cookiecutter.project_name}} admin site"
 

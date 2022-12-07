@@ -41,7 +41,7 @@ jobs:
       - name: Run tests
         run: poetry run python manage.py test -v 3
         env:
-          DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_slug}}.settings"
+          DJANGO_SETTINGS_MODULE: "{{cookiecutter.__project_slug}}.settings"
           DATABASE_URL: "postgresql://django_user:django_pass@postgres/django_db"
 # Uncomment if using heroku
 #  deploy:

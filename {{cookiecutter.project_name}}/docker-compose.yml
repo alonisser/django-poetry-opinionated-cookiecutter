@@ -3,7 +3,7 @@ version: "3.9"
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx_{{cookiecutter.project_slug}}
+    container_name: nginx_{{cookiecutter.__project_slug}}
     ports:
       - "8000:8000"
     volumes:
@@ -16,17 +16,17 @@ services:
         condition: service_healthy
   db:
     image: postgres:13
-    container_name: postgres_{{cookiecutter.project_slug}}
+    container_name: postgres_{{cookiecutter.__project_slug}}
     environment:
-      - POSTGRES_DB={{cookiecutter.project_slug}}_db #todo
-      - POSTGRES_USER={{cookiecutter.project_slug}}_user
-      - POSTGRES_PASSWORD={{cookiecutter.project_slug}}_pass
+      - POSTGRES_DB={{cookiecutter.__project_slug}}_db #todo
+      - POSTGRES_USER={{cookiecutter.__project_slug}}_user
+      - POSTGRES_PASSWORD={{cookiecutter.__project_slug}}_pass
     ports:
       - "5433:5432"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U {{cookiecutter.project_slug}}_user -d {{cookiecutter.project_slug}}_db -p 5432" ]
+      test: [ "CMD-SHELL", "pg_isready -U {{cookiecutter.__project_slug}}_user -d {{cookiecutter.__project_slug}}_db -p 5432" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -39,8 +39,8 @@ services:
       - DJANGO_ALLOWED_HOSTS=web,localhost,127.0.0.1
       - DJANGO_CONFIGURATION=Development
       - DJANGO_MEDIA_ROOT=/media/
-      - DJANGO_SETTINGS_MODULE={{cookiecutter.project_slug}}.settings
-      - DATABASE_URL=postgresql://{{cookiecutter.project_slug}}_user:{{cookiecutter.project_slug}}_pass@db/{{cookiecutter.project_slug}}_db
+      - DJANGO_SETTINGS_MODULE={{cookiecutter.__project_slug}}.settings
+      - DATABASE_URL=postgresql://{{cookiecutter.__project_slug}}_user:{{cookiecutter.__project_slug}}_pass@db/{{cookiecutter.__project_slug}}_db
     command:
       - bash
       - -c
@@ -54,7 +54,7 @@ services:
         print('Superuser password updated successfully.')
         000
         cp /srv/app/static/* -r /static/
-        gunicorn {{cookiecutter.project_slug}}.wsgi --timeout 180 --bind 0.0.0.0
+        gunicorn {{cookiecutter.__project_slug}}.wsgi --timeout 180 --bind 0.0.0.0
 
     volumes:
       - ./data/static:/static
