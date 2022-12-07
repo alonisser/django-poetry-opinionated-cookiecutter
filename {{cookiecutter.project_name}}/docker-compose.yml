@@ -1,28 +1,35 @@
-version: "3"
+version: "3.9"
 
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx_{{cookiecutter.project_name|replace('-','_')}}
+    container_name: nginx_{{cookiecutter.project_slug}}
     ports:
       - "8000:8000"
     volumes:
       - ./nginx_compose:/etc/nginx/conf.d
       - ./data/static:/static
       - ./data/media:/media
+
     depends_on:
-      - web
+      web:
+        condition: service_healthy
   db:
     image: postgres:13
-    container_name: postgres_{{cookiecutter.project_name|replace('-','_')}}
+    container_name: postgres_{{cookiecutter.project_slug}}
     environment:
-      - POSTGRES_DB={{cookiecutter.project_name|replace('-','_')}}_db #todo
-      - POSTGRES_USER={{cookiecutter.project_name|replace('-','_')}}_user
-      - POSTGRES_PASSWORD={{cookiecutter.project_name|replace('-','_')}}_pass
+      - POSTGRES_DB={{cookiecutter.project_slug}}_db #todo
+      - POSTGRES_USER={{cookiecutter.project_slug}}_user
+      - POSTGRES_PASSWORD={{cookiecutter.project_slug}}_pass
     ports:
       - "5433:5432"
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U {{cookiecutter.project_slug}}_user -d {{cookiecutter.project_slug}}_db -p 5432" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   web:
     build:
       context: .
@@ -32,8 +39,8 @@ services:
       - DJANGO_ALLOWED_HOSTS=web,localhost,127.0.0.1
       - DJANGO_CONFIGURATION=Development
       - DJANGO_MEDIA_ROOT=/media/
-      - DJANGO_SETTINGS_MODULE={{cookiecutter.project_name|replace('-','_')}}.settings
-      - DATABASE_URL=postgresql://{{cookiecutter.project_name|replace('-','_')}}_user:{{cookiecutter.project_name|replace('-','_')}}_pass@db/{{cookiecutter.project_name|replace('-','_')}}_db
+      - DJANGO_SETTINGS_MODULE={{cookiecutter.project_slug}}.settings
+      - DATABASE_URL=postgresql://{{cookiecutter.project_slug}}_user:{{cookiecutter.project_slug}}_pass@db/{{cookiecutter.project_slug}}_db
     command:
       - bash
       - -c
@@ -47,7 +54,7 @@ services:
         print('Superuser password updated successfully.')
         000
         cp /srv/app/static/* -r /static/
-        gunicorn {{cookiecutter.project_name|replace('-','_')}}.wsgi --timeout 180 --bind 0.0.0.0
+        gunicorn {{cookiecutter.project_slug}}.wsgi --timeout 180 --bind 0.0.0.0
 
     volumes:
       - ./data/static:/static
@@ -57,4 +64,12 @@ services:
       - "8000"
 
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost:8000/health_check || exit 1"]
+      start_period: 5s
+      interval: 10s
+      timeout: 5s
+      retries: 5

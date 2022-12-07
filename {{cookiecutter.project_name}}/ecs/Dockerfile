@@ -1,4 +1,4 @@
-FROM python:3.9-slim-bullseye
+FROM python:3.10-slim-bullseye
 
 RUN set -ex \
 &&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh

@@ -5,9 +5,9 @@ description = ""
 authors = []
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">3.10,<3.11"
 Django = "^4.1"
-django-configurations = "^2.3"
+django-configurations = "^2.4"
 dj-database-url = "^1.0.0"
 djangorestframework = "^3.14.0"
 django-filter = "^22.1"
@@ -22,7 +22,8 @@ djangorestframework-simplejwt = "^5.2.1"
 psycopg2 = "^2.9.4"
 drf-nested-routers = "^0.93.4"
 drf-spectacular = "^0.24.2"
-boto3 = ">=1.24.94"
+boto3 = ">=1.26.24"
+#whitenoise = ">=6.2.0" #uncomment in heroku
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.3"

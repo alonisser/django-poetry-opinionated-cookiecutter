@@ -41,7 +41,32 @@ jobs:
       - name: Run tests
         run: poetry run python manage.py test -v 3
         env:
-          DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_name|replace('-','_')}}.settings"
+          DJANGO_SETTINGS_MODULE: "{{cookiecutter.project_slug}}.settings"
           DATABASE_URL: "postgresql://django_user:django_pass@postgres/django_db"
+# Uncomment if using heroku
+#  deploy:
+#    if: contains(fromJson('["refs/heads/master", "refs/heads/main"]'), github.ref)
+#    needs: [ test-job ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out repository code
+#        uses: actions/checkout@v3
+#      - name: Install Poetry
+#        run: |
+#          curl -fsS -o get-poetry.py https://install.python-poetry.org
+#          python get-poetry.py -y
+#          echo "$HOME/.local/bin" >> $GITHUB_PATH
+#      - name: export to requirements.txt
+#        run: poetry export -f requirements.txt --output requirements.txt
+#      - name: Deploying to heroku
+#        uses: akhileshns/heroku-deploy@v3.12.12
+#        with:
+#          heroku_email: "YOUR_HEROKU_EMAIL_HERE"
+#          # https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
+#          # Note this YOUR_HEROKU_EMAIL_HERE token, if it's revoked follow the link above to generate a new token, update in repo settings and replace the email accordingly
+  {% raw %}
+#          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  {% endraw %}
 
+#          heroku_app_name: "HEROKU_APP_NAME"
 # TODO: security, deploy to heroku on success on specific branches
