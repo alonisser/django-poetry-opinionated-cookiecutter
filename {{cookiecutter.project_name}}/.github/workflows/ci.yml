@@ -64,6 +64,9 @@ jobs:
 #          heroku_email: "YOUR_HEROKU_EMAIL_HERE"
 #          # https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
 #          # Note this YOUR_HEROKU_EMAIL_HERE token, if it's revoked follow the link above to generate a new token, update in repo settings and replace the email accordingly
+  {% raw %}
 #          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+  {% endraw %}
+
 #          heroku_app_name: "HEROKU_APP_NAME"
 # TODO: security, deploy to heroku on success on specific branches
