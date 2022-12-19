@@ -21,7 +21,7 @@ gunicorn = "^20.1.0"
 djangorestframework-simplejwt = "^5.2.1"
 psycopg2 = "^2.9.4"
 drf-nested-routers = "^0.93.4"
-drf-spectacular = "^0.24.2"
+drf-spectacular = "^0.25.1"
 boto3 = ">=1.26.24"
 #whitenoise = ">=6.2.0" #uncomment in heroku
 
