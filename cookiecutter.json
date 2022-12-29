@@ -1,5 +1,6 @@
 {
   "project_name": null,
   "git_repo": "",
-  "__project_slug": "{{cookiecutter.project_name|lower|replace('-','_')}}"
+  "__project_slug": "{{cookiecutter.project_name|lower|replace('-','_')}}",
+  "heroku_app_name": ""
 }

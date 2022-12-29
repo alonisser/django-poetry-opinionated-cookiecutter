@@ -5,7 +5,7 @@ services:
     image: nginx:latest
     container_name: nginx_{{cookiecutter.__project_slug}}
     ports:
-      - "8000:8000"
+      - "8000:8080"
     volumes:
       - ./nginx_compose:/etc/nginx/conf.d
       - ./data/static:/static
@@ -53,12 +53,14 @@ services:
         admin.save()
         print('Superuser password updated successfully.')
         000
+        python manage.py collectstatic --noinput
         cp /srv/app/static/* -r /static/
         gunicorn {{cookiecutter.__project_slug}}.wsgi --timeout 180 --bind 0.0.0.0
 
     volumes:
       - ./data/static:/static
       - ./data/media:/media
+       - .:/srv/app # Mount the local folder directly, so no need for extra build
 
     expose:
       - "8000"
@@ -68,7 +70,7 @@ services:
         condition: service_healthy
 
     healthcheck:
-      test: ["CMD-SHELL", "curl http://localhost:8000/health_check || exit 1"]
+      test: ["CMD-SHELL", "curl http://web:8000/health_check || exit 1"]
       start_period: 5s
       interval: 10s
       timeout: 5s

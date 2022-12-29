@@ -1,0 +1,3 @@
+python-3.10.9
+# Check supported heroku runtimes https://devcenter.heroku.com/articles/python-support#supported-runtimes
+# you don't need this file if you aren't with heroku or another platform that needs this

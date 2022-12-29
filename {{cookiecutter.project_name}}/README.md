@@ -104,3 +104,4 @@ a full amazon environment with codebuild buildspec [file](./ecs/buildspec.yml)
 ## Not included libraries you might consider adding
 * [Django nested inlines](https://github.com/s-block/django-nested-inline) for "nesting inlines" in the admin
 * [Celery](https://docs.celeryq.dev/en/stable/) for async, scheduled or "out of request/response cycle" behavior
+* [django admin reorder](https://pypi.org/project/django-modeladmin-reorder/) to customize the admin further

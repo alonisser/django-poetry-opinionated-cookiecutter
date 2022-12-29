@@ -1,0 +1,2 @@
+release: python manage.py migrate
+web: gunicorn {{cookiecutter.__project_slug}}.wsgi --log-file -
