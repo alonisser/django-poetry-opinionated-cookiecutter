@@ -40,6 +40,7 @@ services:
       - DJANGO_CONFIGURATION=Development
       - DJANGO_MEDIA_ROOT=/media/
       - DJANGO_SETTINGS_MODULE={{cookiecutter.__project_slug}}.settings
+      - DJANGO_CSRF_TRUSTED_ORIGINS=http://localhost:8000
       - DATABASE_URL=postgresql://{{cookiecutter.__project_slug}}_user:{{cookiecutter.__project_slug}}_pass@db/{{cookiecutter.__project_slug}}_db
     command:
       - bash
