@@ -53,12 +53,17 @@ We are currently using postgres. You need to set up a user,
     GRANT ALL PRIVILEGES ON DATABASE {{cookiecutter.project_name}}_db TO {{cookiecutter.project_name}}_user;
     ALTER ROLE {{cookiecutter.project_name}}_user CREATEDB;
    ```
+   * If PostgreSQL version is 15+
+   ```
+   \c {{cookiecutter.project_name}}_db
+   GRANT ALL ON SCHEMA public TO {{cookiecutter.project_name}}_user;
+   ```
    * to exit postgres cli:   
    `Ctrl+D`
    
      and then exit superuser shell   
    `exit`
-    * Now you can migrate the data:
+   * Now you can migrate the data:
    ```   
    python manage.py migrate   
    ```   
