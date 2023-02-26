@@ -169,6 +169,7 @@ class Base(Configuration):
 class Development(Base):
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = values.ListValue(["web", "localhost", "127.0.0.1"])
+    CSRF_TRUSTED_ORIGINS = values.ListValue(["https://*.127.0.0.1"])
 
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
