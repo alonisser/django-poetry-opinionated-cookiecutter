@@ -161,7 +161,10 @@ class Base(Configuration):
     STATIC_ROOT = BASE_DIR / 'static'
     STATIC_URL = '/static/'
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STORAGES = {
+        "default":
+            {"BACKEND": 'storages.backends.s3boto3.S3Boto3Storage'}
+    }
     MEDIA_ROOT = values.Value(BASE_DIR / 'media')
     MEDIA_URL = '/media/'
 
@@ -169,10 +172,24 @@ class Base(Configuration):
 class Development(Base):
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = values.ListValue(["web", "localhost", "127.0.0.1"])
+
     CSRF_TRUSTED_ORIGINS = values.ListValue(["https://*.127.0.0.1"])
+    STORAGES = {
+        "default":
+            {"BACKEND": 'django.core.files.storage.FileSystemStorage'}
+    }
 
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+class Testing(Development):
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    ]
+    DATABASES = values.DatabaseURLValue( # This is about defaulting to running vs docker db if you don't specify something else
+        "postgresql://contrast_api_user:contrast_api_pass@127.0.0.1:5433/contrast_api_db")
 
+    STORAGES = {
+        "default":
+            {"BACKEND": 'django.core.files.storage.InMemoryStorage'}
+    }
 
 class Staging(Base):
     DEBUG = False

@@ -42,6 +42,7 @@ jobs:
         run: poetry run python manage.py test -v 3
         env:
           DJANGO_SETTINGS_MODULE: "{{cookiecutter.__project_slug}}.settings"
+          DJANGO_CONFIGURATION: Testing
           DATABASE_URL: "postgresql://django_user:django_pass@postgres/django_db"
 # Uncomment the following lines if deploying to heroku
 #  deploy:
@@ -59,7 +60,7 @@ jobs:
 #      - name: export to requirements.txt
 #        run: poetry export -f requirements.txt --output requirements.txt # if you have source code sources, you'll need to add --without-hashes flag also
 #      - name: Deploying to heroku
-#        uses: akhileshns/heroku-deploy@v3.12.12
+#        uses: akhileshns/heroku-deploy@v3.12.13
 #        with:
 #          heroku_email: "YOUR_HEROKU_EMAIL_HERE"
 #          # https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
