@@ -3,7 +3,6 @@ FROM python:3.10-slim-bullseye
 RUN set -ex \
 &&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh
 
-COPY poetry.lock pyproject.toml ./
 RUN set -ex \
     # install system build deps
 &&  apt install -y gcc \
@@ -12,13 +11,16 @@ RUN set -ex \
     # install python app requirements
 &&  pip install poetry
 
+WORKDIR /srv/app
+
+COPY poetry.lock pyproject.toml ./
+
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi  \
   &&  rm -rf ~/.cache poetry.lock pyproject.toml \
     # remove system build deps
   &&  apt purge -y --autoremove gcc
 
-WORKDIR /srv/app
 COPY . .
 RUN set -ex \
     # collect app static
