@@ -163,7 +163,10 @@ class Base(Configuration):
 
     STORAGES = {
         "default":
-            {"BACKEND": 'storages.backends.s3boto3.S3Boto3Storage'}
+            {"BACKEND": 'storages.backends.s3boto3.S3Boto3Storage'},
+        "staticfiles":
+            {"BACKEND": 'django.contrib.staticfiles.storage.StaticFilesStorage'}
+
     }
     MEDIA_ROOT = values.Value(BASE_DIR / 'media')
     MEDIA_URL = '/media/'
@@ -176,7 +179,10 @@ class Development(Base):
     CSRF_TRUSTED_ORIGINS = values.ListValue(["https://*.127.0.0.1"])
     STORAGES = {
         "default":
-            {"BACKEND": 'django.core.files.storage.FileSystemStorage'}
+            {"BACKEND": 'django.core.files.storage.FileSystemStorage'},
+        "staticfiles":
+            {"BACKEND": 'django.contrib.staticfiles.storage.StaticFilesStorage'}
+
     }
 
 class Testing(Development):
@@ -188,7 +194,10 @@ class Testing(Development):
 
     STORAGES = {
         "default":
-            {"BACKEND": 'django.core.files.storage.InMemoryStorage'}
+            {"BACKEND": 'django.core.files.storage.InMemoryStorage'},
+        "staticfiles":
+            {"BACKEND": 'django.contrib.staticfiles.storage.StaticFilesStorage'}
+
     }
 
 class Staging(Base):
