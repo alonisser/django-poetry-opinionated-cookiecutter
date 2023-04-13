@@ -190,7 +190,7 @@ class Testing(Development):
         'django.contrib.auth.hashers.MD5PasswordHasher',
     ]
     DATABASES = values.DatabaseURLValue( # This is about defaulting to running vs docker db if you don't specify something else
-        "postgresql://contrast_api_user:contrast_api_pass@127.0.0.1:5433/contrast_api_db")
+        "postgresql://{{cookiecutter.__project_slug}}_user:{{cookiecutter.__project_slug}}_pass@127.0.0.1:5433/{{cookiecutter.__project_slug}}_db")
 
     STORAGES = {
         "default":
