@@ -11,9 +11,7 @@ services:
       - ./data/static:/static
       - ./data/media:/media
 
-    depends_on:
-      web:
-        condition: service_healthy
+
   db:
     image: postgres:13
     container_name: postgres_{{cookiecutter.__project_slug}}
@@ -70,9 +68,3 @@ services:
       db:
         condition: service_healthy
 
-    healthcheck:
-      test: ["CMD-SHELL", "curl http://web:8000/health_check || exit 1"]
-      start_period: 5s
-      interval: 10s
-      timeout: 5s
-      retries: 5
