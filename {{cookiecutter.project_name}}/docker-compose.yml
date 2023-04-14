@@ -11,6 +11,8 @@ services:
       - ./data/static:/static
       - ./data/media:/media
 
+    depends_on:
+      - web
 
   db:
     image: postgres:13
