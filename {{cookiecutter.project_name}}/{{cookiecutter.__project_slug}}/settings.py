@@ -210,7 +210,7 @@ class Production(Base):
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
     AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
-    # Add buckateer for s3 intergration
+    # If heroku Add buckateer for s3 intergration
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',

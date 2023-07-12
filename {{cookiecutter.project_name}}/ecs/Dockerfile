@@ -24,4 +24,4 @@ RUN poetry config virtualenvs.create false \
 COPY . .
 RUN set -ex \
     # collect app static
-&&  ./manage.py collectstatic --noinput
+&&  python manage.py collectstatic --noinput

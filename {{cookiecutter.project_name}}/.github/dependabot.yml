@@ -7,3 +7,5 @@ updates:
     ignore:
       - dependency-name: "boto3"
         update-types: [ "version-update:semver-patch" ]
+      - dependency-name: "ruff"
+        update-types: [ "version-update:semver-patch" ]
