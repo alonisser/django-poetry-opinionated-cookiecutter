@@ -68,6 +68,20 @@ jobs:
   {% raw -%}
 #          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
   {% endraw %}
-#          Shiheroku_app_name: "{{cookiecutter.heroku_app_name}}"
+#          heroku_app_name: "{{cookiecutter.heroku_app_name}}"
+
+# Uncomment if you're on aws with code pipeline
+#  deploy:
+#    if: contains(fromJson('["refs/heads/prod"]'), github.ref)
+#    needs: [ test-job ]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Trigger AWS CodePipeline
+#        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+#        with:
+#          aws-region: "eu-west-1"
+#          aws-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }} # Note you need those secrets configured for a user with a role to trigger codepipeline start
+#          aws-secret-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          pipeline-name: "meorer-shibutzim-api-prod"
 
 # TODO: security, deploy to heroku on success on specific branches
