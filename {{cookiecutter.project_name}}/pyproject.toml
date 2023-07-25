@@ -23,7 +23,7 @@ psycopg = "^3.1.9"
 drf-nested-routers = "^0.93.4"
 drf-spectacular = "^0.26.3"
 boto3 = ">=1.26.164"
-ruff = "^0.0.278"
+ruff = "^0.0.280"
 
 #whitenoise = ">=6.2.0" #uncomment in heroku
 
