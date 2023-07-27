@@ -61,7 +61,7 @@ services:
     volumes:
       - ./data/static:/static
       - ./data/media:/media
-       - .:/srv/app # Mount the local folder directly, so no need for extra build
+      - .:/srv/app # Mount the local folder directly, so no need for extra build
 
     expose:
       - "8000"
