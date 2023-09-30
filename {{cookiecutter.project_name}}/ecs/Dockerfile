@@ -1,7 +1,7 @@
-FROM python:3.10-slim-bullseye
+FROM python:3.11-slim-bookworm
 
-RUN set -ex \
-&&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh
+#RUN set -ex \
+#&&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh
 
 RUN set -ex \
     # install system build deps
