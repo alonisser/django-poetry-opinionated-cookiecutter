@@ -30,6 +30,7 @@ class Base(Configuration):
 
     ALLOWED_HOSTS = values.ListValue([])  # Would be passed from above in the ecs task
     CORS_ALLOWED_ORIGINS = values.ListValue([])
+    CSRF_TRUSTED_ORIGINS = values.ListValue([])  # for where you're running in a container and need the admin
     # Application definition
     THIRD_PARTY_APPS = [
         'corsheaders',
