@@ -27,7 +27,7 @@ boto3 = ">=1.28.60"
 #whitenoise = ">=6.2.0" #uncomment in heroku
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.3.1"
+pytest = "^7.4.2"
 ruff = "^0.0.292"
 
 [build-system]
