@@ -5,7 +5,7 @@ description = ""
 authors = []
 
 [tool.poetry.dependencies]
-python = ">3.11,<3.12"
+python = ">{{cookiecutter.python_version}},<3.12"
 Django = "^4.2"
 django-configurations = "^2.4"
 dj-database-url = "^2.1.0"

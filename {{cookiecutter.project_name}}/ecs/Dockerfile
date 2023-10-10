@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm
+FROM python:{{cookiecutter.python_version}}-slim-bookworm
 
 RUN set -ex \
     # install system build deps
