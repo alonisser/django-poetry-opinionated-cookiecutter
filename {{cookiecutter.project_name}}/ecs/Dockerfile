@@ -1,11 +1,8 @@
 FROM python:3.11-slim-bookworm
 
-#RUN set -ex \
-#&&  apt update && apt install -y openssh-server && mkdir /run/sshd ~/.ssh
-
 RUN set -ex \
     # install system build deps
-&&  apt install -y gcc \
+&&  apt update &&  apt install -y gcc \
     # install system runtime deps
 &&  apt install -y libpq-dev \
     # install python app requirements
