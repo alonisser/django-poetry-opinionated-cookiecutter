@@ -15,7 +15,7 @@ services:
       - web
 
   db:
-    image: postgres:13
+    image: postgres:15
     container_name: postgres_{{cookiecutter.__project_slug}}
     environment:
       - POSTGRES_DB={{cookiecutter.__project_slug}}_db #todo
