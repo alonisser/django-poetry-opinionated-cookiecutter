@@ -24,11 +24,14 @@ drf-nested-routers = "^0.93.4"
 drf-spectacular = "^0.26.5"
 boto3 = ">=1.28.60"
 
-#whitenoise = ">=6.2.0" #uncomment in heroku
+{ % - if cookiecutter.heroku_app_name | length - %}
+whitenoise = ">=6.2.0" #for heroku serving static files for admin
+{ % - endif - %}
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.4.2"
-ruff = "^0.0.292"
+ruff = "^0.1.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
