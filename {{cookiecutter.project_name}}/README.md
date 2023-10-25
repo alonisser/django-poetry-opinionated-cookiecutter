@@ -117,4 +117,5 @@ With [ruff](https://github.com/astral-sh/ruff), not automated yet as part of CI
 
 ```bash
 ruff check . --fix
+fuff format
 ```
