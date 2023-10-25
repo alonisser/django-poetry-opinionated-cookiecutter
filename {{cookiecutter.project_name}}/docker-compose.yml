@@ -56,7 +56,7 @@ services:
         000
         python manage.py collectstatic --noinput
         cp /srv/app/static/* -r /static/
-        gunicorn {{cookiecutter.__project_slug}}.wsgi --timeout 180 --bind 0.0.0.0
+        gunicorn {{cookiecutter.__project_slug}}.wsgi --timeout 180 --bind 0.0.0.0 --reload
 
     volumes:
       - ./data/static:/static
