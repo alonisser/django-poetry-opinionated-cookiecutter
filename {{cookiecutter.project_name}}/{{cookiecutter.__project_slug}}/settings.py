@@ -215,7 +215,9 @@ class Production(Base):
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
-        # 'whitenoise.middleware.WhiteNoiseMiddleware', #Uncomment in heroku
+        { % - if cookiecutter.heroku_app_name | length - %}
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+        { % - endif - %}
         'django.contrib.sessions.middleware.SessionMiddleware',
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
