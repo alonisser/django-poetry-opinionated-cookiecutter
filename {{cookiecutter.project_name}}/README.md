@@ -111,7 +111,7 @@ a full amazon environment with codebuild buildspec [file](./ecs/buildspec.yml)
 * [Celery](https://docs.celeryq.dev/en/stable/) for async, scheduled or "out of request/response cycle" behavior
 * [django admin reorder](https://pypi.org/project/django-modeladmin-reorder/) to customize the admin further
 
-### Linting
+### Linting and formatting
 
 With [ruff](https://github.com/astral-sh/ruff), not automated yet as part of CI
 
