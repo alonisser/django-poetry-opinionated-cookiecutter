@@ -24,9 +24,9 @@ drf-nested-routers = "^0.93.5"
 drf-spectacular = "^0.27.1"
 boto3 = ">=1.34.67"
 
-{ % - if cookiecutter.heroku_app_name | length - %}
+{%-  if cookiecutter.heroku_app_name | length -%}
 whitenoise = ">=6.6.0" #for heroku serving static files for admin
-{ % - endif - %}
+{%-  endif -%}
 
 
 [tool.poetry.dev-dependencies]
