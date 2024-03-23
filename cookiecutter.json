@@ -2,6 +2,7 @@
   "project_name": null,
   "git_repo": "",
   "python_version": "3.11",
+  "__max_python_version":"{{ [cookiecutter.python_version.split('.')[0], (cookiecutter.python_version.split('.')[1]|int + 1)]|join('.') }}",
   "__project_slug": "{{cookiecutter.project_name|lower|replace('-','_')}}",
   "heroku_app_name": "" ,
   "is_aws_app": false
