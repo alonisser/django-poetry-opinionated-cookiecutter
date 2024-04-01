@@ -6,15 +6,15 @@ authors = []
 
 [tool.poetry.dependencies]
 python = ">={{cookiecutter.python_version}},<{{cookiecutter.__max_python_version}}"
-Django = "^5.0.4"
+Django = "^5.0.3"
 django-configurations = "^2.5"
 dj-database-url = "^2.1.0"
-djangorestframework = "^3.15.0"
-django-filter = "^24.1"
+djangorestframework = "^3.15.1"
+django-filter = "^24.2"
 django-extensions = "^3.2.3"
 django-import-export = "^3.3.7"
 django-storages = "^1.14.2"
-Pillow = "^10.2.0"
+Pillow = "^10.3.0"
 django-cors-headers = "^4.3.1"
 django-querycount = "^0.8.3"
 gunicorn = "^21.2.0"
@@ -34,7 +34,7 @@ whitenoise = ">=6.6.0" #for heroku serving static files for admin
 [tool.poetry.dev-dependencies]
 
 pytest = "^8.1.1"
-ruff = "^0.3.3"
+ruff = "^0.3.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
