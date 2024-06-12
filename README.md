@@ -58,5 +58,5 @@ docker-compose up --build
 1. Install the prerequisites
 2. Run cookiecutter with this template
     ```shell
-    pipx run cookiecutter https://github.com/alonisser/django-poetry-opinionated-cookiecutte
+    pipx run cookiecutter https://github.com/alonisser/django-poetry-opinionated-cookiecutter
     ```
