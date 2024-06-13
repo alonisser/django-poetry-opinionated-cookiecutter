@@ -172,6 +172,10 @@ class Base(Configuration):
     MEDIA_ROOT = values.Value(BASE_DIR / 'media')
     MEDIA_URL = '/media/'
 
+    # Default primary key field type
+    # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 class Development(Base):
     CORS_ALLOW_ALL_ORIGINS = True
