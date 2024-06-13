@@ -219,9 +219,9 @@ class Production(Base):
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
-        {%- if cookiecutter.heroku_app_name | length -%}
+        {%- if cookiecutter.heroku_app_name|length %}
         'whitenoise.middleware.WhiteNoiseMiddleware',
-        {%- endif -%}
+        {%- endif %}
         'django.contrib.sessions.middleware.SessionMiddleware',
         'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
