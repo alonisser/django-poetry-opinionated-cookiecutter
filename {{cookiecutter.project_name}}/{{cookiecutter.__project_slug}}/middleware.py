@@ -1,7 +1,7 @@
 from os import getenv
 
-import pytz
 from django.utils import timezone
+import zoneinfo
 
 
 class TimezoneMiddleware:
@@ -9,7 +9,7 @@ class TimezoneMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        environment_timezone = getenv('USER_TZ', 'Asia/Jerusalem')
-        activated_timezone = pytz.timezone(environment_timezone)
+        environment_timezone = getenv("USER_TZ", "Asia/Jerusalem")
+        activated_timezone = zoneinfo.ZoneInfo(environment_timezone)
         timezone.activate(activated_timezone)
         return self.get_response(request)
