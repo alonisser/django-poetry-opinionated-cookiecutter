@@ -1,8 +1,17 @@
 name: CI pipeline
 on: [push, pull_request] #Which triggers there are available?
+
+permissions:
+  security-events: write
+  contents: read
+  pull-requests: read
+
 jobs:
   test-job:
     runs-on: ubuntu-latest
+    if: | # I don't want to run on dependebot pushes, just pr, but for the rest all, including all prs
+      (github.event_name == 'push' && github.actor != 'dependabot[bot]') ||
+      (github.event_name == 'pull_request')
     strategy:
       max-parallel: 4
       matrix:
