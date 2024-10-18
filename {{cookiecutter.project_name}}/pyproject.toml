@@ -34,8 +34,8 @@ whitenoise = ">=6.7.0" #for heroku serving static files for admin
 
 [tool.poetry.dev-dependencies]
 
-pytest = "^8.3.2"
-ruff = "^0.6.3"
+pytest = "^8.3.3"
+ruff = "^0.7.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
