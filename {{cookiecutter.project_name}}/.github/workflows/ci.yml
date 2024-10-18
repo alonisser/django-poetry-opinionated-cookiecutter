@@ -30,7 +30,7 @@ jobs:
       - run: echo "Starting build"
       - run: apt update && apt install -y gcc libpq-dev libz-dev
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Poetry
         run: |
             curl -fsS -o get-poetry.py https://install.python-poetry.org
@@ -50,10 +50,10 @@ jobs:
   deploy:
     if: contains(fromJson('["refs/heads/master", "refs/heads/main"]'), github.ref)
     needs: [ test-job ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Poetry
         run: |
           curl -fsS -o get-poetry.py https://install.python-poetry.org
@@ -81,7 +81,7 @@ jobs:
 #  deploy:
 #    if: contains(fromJson('["refs/heads/prod"]'), github.ref)
 #    needs: [ test-job ]
-#    runs-on: ubuntu-latest
+#    runs-on: ubuntu-22.04
 #    steps:
 #      - name: Trigger AWS CodePipeline
 #        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
