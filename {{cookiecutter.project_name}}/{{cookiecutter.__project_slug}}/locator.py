@@ -37,7 +37,7 @@ class ServiceLocator(object):
             class_type = cls.get_class_from_settings(service_name)
             return cls._get_instance(class_type)
 
-        except Exception:
+        except AttributeError:
             raise ServiceNotRegisteredError(service_name=service_name)
 
     @classmethod
