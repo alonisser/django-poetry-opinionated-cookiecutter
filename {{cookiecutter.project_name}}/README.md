@@ -47,16 +47,16 @@ We are currently using postgres. You need to set up a user,
    ```
    * create a database, a user and a role
     ```
-    CREATE DATABASE {{cookiecutter.project_name}}_db;
-    CREATE USER {{cookiecutter.project_name}}_user WITH PASSWORD '{{cookiecutter.project_name}}_pass';
-    ALTER ROLE {{cookiecutter.project_name}}_user SET client_encoding TO 'utf8';
-    GRANT ALL PRIVILEGES ON DATABASE {{cookiecutter.project_name}}_db TO {{cookiecutter.project_name}}_user;
-    ALTER ROLE {{cookiecutter.project_name}}_user CREATEDB;
+    CREATE DATABASE {{cookiecutter.__project_slug}}_db;
+    CREATE USER {{cookiecutter.__project_slug}}_user WITH PASSWORD '{{cookiecutter.pr__project_slugoject_name}}_pass';
+    ALTER ROLE {{cookiecutter.__project_slug}}_user SET client_encoding TO 'utf8';
+    GRANT ALL PRIVILEGES ON DATABASE {{cookiecutter.__project_slug}}_db TO {{cookiecutter.__project_slug}}_user;
+    ALTER ROLE {{cookiecutter.__project_slug}}_user CREATEDB;
    ```
    * If PostgreSQL version is 15+
    ```
-   \c {{cookiecutter.project_name}}_db
-   GRANT ALL ON SCHEMA public TO {{cookiecutter.project_name}}_user;
+   \c {{cookiecutter.__project_slug}}_db
+   GRANT ALL ON SCHEMA public TO {{cookiecutter.__project_slug}}_user;
    ```
    * to exit postgres cli:   
    `Ctrl+D`
