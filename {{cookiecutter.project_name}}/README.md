@@ -48,7 +48,7 @@ We are currently using postgres. You need to set up a user,
    * create a database, a user and a role
     ```
     CREATE DATABASE {{cookiecutter.__project_slug}}_db;
-    CREATE USER {{cookiecutter.__project_slug}}_user WITH PASSWORD '{{cookiecutter.pr__project_slugoject_name}}_pass';
+    CREATE USER {{cookiecutter.__project_slug}}_user WITH PASSWORD '{{cookiecutter.__project_slug}}_pass';
     ALTER ROLE {{cookiecutter.__project_slug}}_user SET client_encoding TO 'utf8';
     GRANT ALL PRIVILEGES ON DATABASE {{cookiecutter.__project_slug}}_db TO {{cookiecutter.__project_slug}}_user;
     ALTER ROLE {{cookiecutter.__project_slug}}_user CREATEDB;
