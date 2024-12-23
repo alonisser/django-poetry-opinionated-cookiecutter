@@ -217,10 +217,11 @@ class Production(Base):
     CORS_ALLOW_ALL_ORIGINS = False
     AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
     # If heroku Add buckateer for s3 intergration
-
+    {% if cookiecutter.heroku_app_name | length %}
     # Redirect from http to https at application level (needed for Heroku)
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
+    {%- endif %}
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
