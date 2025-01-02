@@ -22,7 +22,9 @@ class ServiceLocator(object):
     @classmethod
     def get_class_from_settings(cls, service_name):
         settings_name = service_name.upper()
-        service_class = getattr(settings, settings_name)
+        service_class = getattr(settings, settings_name, None)
+        if not service_class:
+            raise ServiceNotRegisteredError(service_name=service_name)
         module = import_string(service_class)
         return module
 
@@ -33,12 +35,8 @@ class ServiceLocator(object):
 
     @classmethod
     def get_service(cls, service_name):
-        try:
-            class_type = cls.get_class_from_settings(service_name)
-            return cls._get_instance(class_type)
-
-        except AttributeError:
-            raise ServiceNotRegisteredError(service_name=service_name)
+        class_type = cls.get_class_from_settings(service_name)
+        return cls._get_instance(class_type)
 
     @classmethod
     def _get_instance(cls, instance_type):
