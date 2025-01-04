@@ -14,7 +14,7 @@ django-filter = "^24.3"
 django-extensions = "^3.2.3"
 django-import-export = "^4.3.3"
 django-storages = "^1.14.4"
-Pillow = "^11.0.0"
+Pillow = "^11.1.0"
 django-cors-headers = "^4.5.0"
 django-querycount = "^0.8.3"
 gunicorn = "^23.0.0"
@@ -23,7 +23,6 @@ psycopg = "^3.2.3"
 drf-nested-routers = "^0.94.1"
 drf-spectacular = "^0.28.0"
 boto3 = ">=1.35.79"
-pytz = "^2024.2"
 
 {%  if cookiecutter.heroku_app_name | length %}
 whitenoise = ">=6.7.0" #for heroku serving static files for admin
@@ -35,7 +34,7 @@ whitenoise = ">=6.7.0" #for heroku serving static files for admin
 [tool.poetry.dev-dependencies]
 
 pytest = "^8.3.4"
-ruff = "^0.8.2"
+ruff = "^0.8.6"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
