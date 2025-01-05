@@ -3,6 +3,7 @@ name = "{{cookiecutter.project_name|replace('_','-')}}"
 version = "0.1.0"
 description = ""
 authors = []
+package-mode = false
 
 [tool.poetry.dependencies]
 python = ">={{cookiecutter.python_version}},<{{cookiecutter.__max_python_version}}"
