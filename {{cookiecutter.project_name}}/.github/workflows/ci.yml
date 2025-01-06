@@ -63,13 +63,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Install Poetry
-        run: |
-          curl -fsS -o get-poetry.py https://install.python-poetry.org
-          python get-poetry.py -y
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-      - name: export to requirements.txt
-        run: poetry self add poetry-plugin-export && poetry export -f requirements.txt --output requirements.txt # if you have source code sources, you'll need to add --without-hashes flag also
       - name: Deploying to heroku
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
