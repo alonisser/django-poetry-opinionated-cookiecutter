@@ -61,6 +61,8 @@ jobs:
     needs: [ test-job ]
     runs-on: ubuntu-22.04
     steps:
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Deploying to heroku
