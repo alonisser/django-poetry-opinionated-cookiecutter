@@ -4,7 +4,6 @@ import os
 
 REMOVE_PATHS = [
     '{% if cookiecutter.heroku_app_name | length == 0 %}Procfile{% endif %}',
-    '{% if cookiecutter.heroku_app_name | length == 0 %}runtime.txt{% endif %}',
 ]
 
 for path in REMOVE_PATHS:
