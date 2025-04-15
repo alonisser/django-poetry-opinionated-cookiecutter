@@ -24,14 +24,18 @@ Clone this project
 
 3. Install dependencies:    
 enter projects directory and install dependencies using Poetry. Poetry will look for pyproject.toml file
-    ```
-    cd {{cookiecutter.project_name}}
-    poetry install
-    ```
-   And enter the virtual env created by Poetry:
+   ```bash
+      cd {{cookiecutter.project_name}}
+      poetry install
    ```
-   poetry shell
+      Activate the virtual environment:
+   ```bash
+      poetry shell
    ```
+
+      > **Note:** If you're using Poetry version 2.0.0 or later:
+      > - Install the [poetry-plugin-shell](https://github.com/python-poetry/poetry-plugin-shell), or
+      > - Use `poetry env activate` to get the activation command
    
 ---
 ### From this point in the setup you should run the commands while you are inside the virtual env / poetry shell 
