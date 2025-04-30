@@ -1,0 +1,23 @@
+---
+description: Coding standards for python projects
+globs: *.py
+alwaysApply: false
+---
+
+# Coding standards
+## general
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., is_active, has_permission).
+- Refrain from using generic "helpers" and "utils" naming unless something is really not application/business logic related at all
+- Refrain from using "magic numbers" in your code, always name constants
+
+## Python specific
+- When writing python adhere to python standards including pep8
+- Never return anonymous tuples as return type, prefer dataclasses or named tuples
+- Use type hints for all function/method signatures. arguments/parameter type and return type
+- Add docstrings to methods/files/classes explaining main functionality
+- Use Application logic custom Exception classes instead of generic raise 
+- Use lowercase with underscores for directories and files 
+- Prefer "string enum like" classes reference over plain "string" configuration repeated over the code
+- For constants not in enum classes, use UPPER_SNAKE_CASE naming convention
+- Check changed files with `ruff check .` and fix accordingly

@@ -1,0 +1,21 @@
+---
+description: Useful when dealing with configuration/settings/secrets related stuff
+globs:
+alwaysApply: false
+---
+
+# Configuration/Settings
+
+## General Principles
+- All configuration belongs under settings.py don't spray them all over the code
+- use django-configurations specific syntax with Value classes when adding configuration
+
+## Secret Management
+- Never commit secrets to version control
+- Use appropriate secret management services
+- Document secret requirements
+
+## Configuration Structure
+- Group related settings together
+- Use hierarchical configuration when appropriate
+- Include default values for all optional settings
