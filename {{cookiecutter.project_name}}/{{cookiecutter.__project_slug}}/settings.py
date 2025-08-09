@@ -210,18 +210,29 @@ class Staging(Base):
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
     AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
-
-
-class Production(Base):
-    DEBUG = False
-    CORS_ALLOW_ALL_ORIGINS = False
-    AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
-    # If heroku Add buckateer for s3 intergration
-    {% if cookiecutter.heroku_app_name | length %}
+    { % if cookiecutter.heroku_app_name | length %}
     # Redirect from http to https at application level (needed for Heroku)
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
-    {%- endif %}
+    { % - endif %}
+
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated',
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+        'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+        'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer'
+        ),
+        'PAGE_SIZE': 30,
+        'NUM_PROXIES':1 # make throttling around forward-for header spoofing
+    }
 
     MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
@@ -240,3 +251,52 @@ class Production(Base):
         'querycount.middleware.QueryCountMiddleware'
 
     ]
+
+
+class Production(Base):
+    DEBUG = False
+    CORS_ALLOW_ALL_ORIGINS = False
+    AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
+    # If heroku Add buckateer for s3 intergration
+    {% if cookiecutter.heroku_app_name | length %}
+    # Redirect from http to https at application level (needed for Heroku)
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    {%- endif %}
+
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAuthenticated',
+        ],
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+        'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+        'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer'
+        ),
+        'PAGE_SIZE': 30,
+        'NUM_PROXIES':1 # make throttling around forward-for header spoofing
+    }
+
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        {%- if cookiecutter.heroku_app_name|length %}
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+        {%- endif %}
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.auth.middleware.LoginRequiredMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        "{{cookiecutter.__project_slug}}.middleware.TimezoneMiddleware",
+        'querycount.middleware.QueryCountMiddleware'
+
+    ]
+
