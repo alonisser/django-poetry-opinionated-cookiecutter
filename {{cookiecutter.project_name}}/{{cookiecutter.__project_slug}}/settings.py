@@ -228,7 +228,6 @@ class Staging(Base):
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         'DEFAULT_RENDERER_CLASSES': (
             'rest_framework.renderers.JSONRenderer',
-            'rest_framework.renderers.BrowsableAPIRenderer'
         ),
         'PAGE_SIZE': 30,
         'NUM_PROXIES':1 # make throttling around forward-for header spoofing
@@ -276,7 +275,6 @@ class Production(Base):
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         'DEFAULT_RENDERER_CLASSES': (
             'rest_framework.renderers.JSONRenderer',
-            'rest_framework.renderers.BrowsableAPIRenderer'
         ),
         'PAGE_SIZE': 30,
         'NUM_PROXIES':1 # make throttling around forward-for header spoofing
