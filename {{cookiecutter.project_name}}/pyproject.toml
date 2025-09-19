@@ -12,21 +12,21 @@ django-configurations = "^2.5.1"
 dj-database-url = "^2.3.0"
 djangorestframework = "^3.16.0"
 django-filter = "^25.1"
-django-extensions = "^4.1"
+django-extensions = "^4.2"
 django-import-export = "^4.3.9"
 django-storages = "^1.14.6"
-Pillow = "^11.2.1"
+Pillow = "^11.3.0"
 django-cors-headers = "^4.7.0"
 django-querycount = "^0.8.3"
 gunicorn = "^23.0.0"
-djangorestframework-simplejwt = "^5.5.0"
-psycopg = "^3.2.9"
-drf-nested-routers = "^0.94.1"
+djangorestframework-simplejwt = "^5.5.1"
+psycopg = "^3.2.10"
+drf-nested-routers = "^0.95.0"
 drf-spectacular = "^0.28.0"
-boto3 = ">=1.39.17"
+boto3 = ">=1.40.34"
 
 {%  if cookiecutter.heroku_app_name | length %}
-whitenoise = ">=6.7.0" #for heroku serving static files for admin
+whitenoise = ">=6.10.0" #for heroku serving static files for admin
 {% else %}
 
 {%  endif %}
@@ -34,8 +34,8 @@ whitenoise = ">=6.7.0" #for heroku serving static files for admin
 
 [tool.poetry.dev-dependencies]
 
-pytest = "^8.4.1"
-ruff = "^0.12.7"
+pytest = "^8.4.2"
+ruff = "^0.13.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
