@@ -11,8 +11,7 @@ alwaysApply: true
 2. Document link to swagger in
 
 ## Parameters and needed env variables
-W
-hen making changes to configuration options in the project, all changes must be reflected in the README.md file.
+When making changes to configuration options in the project, all changes must be reflected in the README.md file.
 
 1. All new parameters must be documented in README.md
 2. if project uses an .env file provide an example in README.md without real values
