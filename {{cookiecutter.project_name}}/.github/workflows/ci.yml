@@ -39,7 +39,7 @@ jobs:
       - run: echo "Starting build"
       - run: apt update && apt install -y gcc libpq-dev libz-dev
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install Poetry
         run: |
             curl -fsS -o get-poetry.py https://install.python-poetry.org
@@ -64,9 +64,9 @@ jobs:
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Deploying to heroku
-        uses: akhileshns/heroku-deploy@v3.13.15
+        uses: akhileshns/heroku-deploy@v3.14.15
         with:
           heroku_email: "YOUR_HEROKU_EMAIL_HERE"
           # https://help.heroku.com/PBGP6IDE/how-should-i-generate-an-api-key-that-allows-me-to-use-the-heroku-platform-api
