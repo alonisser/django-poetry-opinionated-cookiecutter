@@ -1,29 +1,10 @@
 # Project Knowledgebase
 
-This document captures important architectural decisions, technical patterns, and knowledge about the django-poetry-opinionated-cookiecutter project.
+This document captures important architectural decisions, technical patterns, and knowledge about this Django REST API project.
 
 ## Project Purpose
 
-This is a **cookiecutter template** (not a regular Django project) that generates opinionated Django REST API projects. It's designed to bootstrap new Django projects with best practices and common tooling already configured.
-
-## Cookiecutter Template Structure
-
-### Important Template Facts
-
-1. **Template Variables**: The project uses Jinja2 templating with cookiecutter variables:
-   - `{{cookiecutter.project_name}}`: User-provided project name
-   - `{{cookiecutter.__project_slug}}`: Auto-generated slug (lowercase with underscores)
-   - `{{cookiecutter.python_version}}`: Python version (defaults to 3.12)
-   - `{{cookiecutter.git_repo}}`: Git repository URL
-   - `{{cookiecutter.heroku_app_name}}`: Optional Heroku app name
-   - `{{cookiecutter.is_aws_app}}`: Boolean for AWS deployment support
-
-2. **Conditional Generation**: The template uses Jinja2 conditionals to include/exclude features:
-   - Heroku support (whitenoise middleware) is conditional on `heroku_app_name` being set
-   - AWS deployment files are conditional on `is_aws_app` flag
-   - GitHub Actions deployment jobs vary based on deployment target
-
-3. **Directory Structure**: The generated project will be in `{{cookiecutter.project_name}}/` with the main Django app in `{{cookiecutter.__project_slug}}/`
+This is an opinionated Django REST API project built with best practices and modern tooling, designed for scalable web API development with multiple deployment options.
 
 ## Architecture Decisions
 
@@ -54,7 +35,7 @@ class Base(Configuration):
 
 **Decision**: Implement a custom "poor man's service locator" for dependency injection.
 
-**Location**: `{{cookiecutter.__project_slug}}/locator.py`
+**Location**: `locator.py` in the main project directory
 
 **Purpose**:
 - Allows swapping between real and fake services (especially useful for testing)
@@ -140,7 +121,7 @@ service = ServiceLocator.get_service('my_service')
 
 ### Multi-Environment Support
 
-The template supports three deployment targets with different configurations:
+The project supports three deployment targets with different configurations:
 
 #### 1. Local Development (Docker Compose)
 - **Command**: `docker-compose up --build`
@@ -152,21 +133,25 @@ The template supports three deployment targets with different configurations:
 - **Storage**: Local filesystem
 - **Database**: PostgreSQL in Docker container
 
+{%- if cookiecutter.heroku_app_name|length %}
+
 #### 2. Heroku Deployment
-- **Enabled when**: `heroku_app_name` is set in cookiecutter.json
 - **Special middleware**: WhiteNoiseMiddleware for static files
 - **SSL**: Force HTTPS redirect via `SECURE_PROXY_SSL_HEADER` and `SECURE_SSL_REDIRECT`
 - **CI/CD**: GitHub Actions auto-deploys on push to master/main
 - **Requirements**: `HEROKU_API_KEY` secret in GitHub
+{%- endif %}
+
+{%- if cookiecutter.is_aws_app %}
 
 #### 3. AWS Deployment (ECS)
-- **Enabled when**: `is_aws_app` is true
 - **Components**:
   - ECS task definitions
   - Custom Dockerfile for ECS
   - CodePipeline integration (optional)
 - **Storage**: S3 via django-storages
 - **CI/CD**: Can trigger CodePipeline from GitHub Actions (commented out by default)
+{%- endif %}
 
 ### Docker Implementation Details
 
@@ -228,31 +213,35 @@ The template supports three deployment targets with different configurations:
 **Triggers**: Push and pull requests (except dependabot pushes)
 
 **Test Job**:
-1. Runs in Python container matching cookiecutter version
+1. Runs in Python container
 2. PostgreSQL 16 service container
 3. Installs Poetry via install script
 4. Runs Django tests with verbose output
 5. Uses Testing configuration
 
 **Deploy Job** (conditional):
+{%- if cookiecutter.heroku_app_name|length %}
 - **Heroku**: Auto-deploys from master/main after tests pass
+- **Required Secrets**: `HEROKU_API_KEY`
+{%- endif %}
+{%- if cookiecutter.is_aws_app %}
 - **AWS**: CodePipeline trigger available (commented out, requires manual setup)
-
-**Required Secrets**:
-- `HEROKU_API_KEY` (for Heroku deployments)
-- `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` (for AWS deployments)
+- **Required Secrets**: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
+{%- endif %}
 
 ## Common Patterns & Conventions
 
 ### Settings Organization
 - **DJANGO_APPS**: Built-in Django apps
 - **THIRD_PARTY_APPS**: External packages
-- **{PROJECT_NAME}_APPS**: Project-specific apps (empty in template)
+- **{PROJECT_NAME}_APPS**: Project-specific apps
 - **Pattern**: Always group apps by category
 
 ### Middleware Order (Important)
 1. SecurityMiddleware
-2. WhiteNoiseMiddleware (Heroku only, must be #2)
+{%- if cookiecutter.heroku_app_name|length %}
+2. WhiteNoiseMiddleware (must be #2 for Heroku static file serving)
+{%- endif %}
 3. SessionMiddleware
 4. CorsMiddleware (early for CORS headers)
 5. CommonMiddleware
@@ -267,7 +256,7 @@ The template supports three deployment targets with different configurations:
 ### Environment Variables
 
 **Required**:
-- `DJANGO_SETTINGS_MODULE`: `{project_slug}.settings`
+- `DJANGO_SETTINGS_MODULE`: Path to settings module (e.g., `myproject.settings`)
 - `DJANGO_CONFIGURATION`: Development/Testing/Staging/Production
 - `DATABASE_URL`: PostgreSQL connection string
 - `SECRET_KEY`: Django secret key
@@ -280,15 +269,10 @@ The template supports three deployment targets with different configurations:
 - `S3_STORAGE`: S3 bucket name (Staging/Production)
 - `DJANGO_MEDIA_ROOT`: Media files path
 
-### Python Version Handling
-
-**Dynamic Version Range**: The template calculates compatible Python versions:
-- `python_version`: User-specified (e.g., 3.12)
-- `__max_python_version`: Auto-calculated as next minor (e.g., 3.13)
-- `__min_python_version`: Auto-calculated as previous minor (e.g., 3.11)
-- **pyproject.toml constraint**: `>=3.12,<3.13` (supports 3.12.x only)
-
-**Implication**: Generated projects lock to a specific minor version range.
+### Python Version
+- This project uses a specific Python version defined in pyproject.toml
+- The version constraint typically locks to a minor version range (e.g., >=3.12,<3.13)
+- Check pyproject.toml for the exact version requirements
 
 ## Security Considerations
 
@@ -298,7 +282,9 @@ The template supports three deployment targets with different configurations:
 - LoginRequiredMiddleware enabled
 - CSRF protection enabled
 - Clickjacking protection enabled
-- SSL redirect for Heroku deployments
+{%- if cookiecutter.heroku_app_name|length %}
+- SSL redirect enabled for Heroku deployment
+{%- endif %}
 
 ### Secret Management
 - Never commit secrets to version control
@@ -312,12 +298,6 @@ The template supports three deployment targets with different configurations:
 - Avoid exposing properties in list_display unless select_related
 
 ## Known Patterns & Gotchas
-
-### Cookiecutter Template Testing
-When testing the template locally:
-1. Use `cookiecutter .` from parent directory
-2. Provide test values for all variables
-3. Remember the generated project is in `{project_name}/` subdirectory
 
 ### Database Port Differences
 - **Local development**: Port 5432 (host or within container)
@@ -337,10 +317,10 @@ Storage is environment-dependent:
 - Always run `ruff check .` before committing
 
 ### Django Admin Import/Export
-The template includes django-import-export but:
-- No example resources are defined
-- Developers must create Resource classes for each model
+This project includes django-import-export:
+- Create Resource classes for each model you want to import/export
 - Useful for bulk data operations in admin
+- Refer to django-import-export documentation for implementation details
 
 ## Future Considerations
 
@@ -391,7 +371,6 @@ The template includes django-import-export but:
 ### Dependency Updates
 - Django is pinned to ^5.2 (will accept 5.x updates)
 - PostgreSQL version in docker-compose: 16
-- Python image in Dockerfile: based on cookiecutter variable
 - Regularly update dependencies via `poetry update`
 
 ### Testing
