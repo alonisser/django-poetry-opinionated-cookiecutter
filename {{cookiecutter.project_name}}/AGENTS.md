@@ -1,10 +1,9 @@
 # AI Agent Instructions
 
-This is a Django cookiecutter template project that generates opinionated Django REST API projects using Poetry for dependency management.
+This is an opinionated Django REST API project using Poetry for dependency management.
 
 ## Project Overview
 
-This cookiecutter template creates Django projects with:
 - Poetry for dependency management
 - Django 5.2+ with Django REST Framework
 - PostgreSQL as the default database
@@ -120,10 +119,3 @@ When making changes to configuration options in the project, all changes must be
 2. If the project uses an `.env` file, provide an example in README.md without real values
 3. Update needed environment variables in the docker-compose file for local run
 
-## Project Structure Notes
-
-This is a cookiecutter template, so:
-- The actual project will be generated in `{{cookiecutter.project_name}}/` directory
-- Template variables use Jinja2 syntax (e.g., `{{cookiecutter.project_name}}`)
-- Project slug is automatically generated as lowercase with underscores
-- Python version defaults to 3.12 but is configurable
