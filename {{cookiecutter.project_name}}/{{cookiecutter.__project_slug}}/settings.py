@@ -210,11 +210,11 @@ class Staging(Base):
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = False
     AWS_STORAGE_BUCKET_NAME = values.Value(environ_name="S3_STORAGE")
-    { % if cookiecutter.heroku_app_name | length %}
+    {%- if cookiecutter.heroku_app_name | length %}
     # Redirect from http to https at application level (needed for Heroku)
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
-    { % - endif %}
+    {%- endif %}
 
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': [
