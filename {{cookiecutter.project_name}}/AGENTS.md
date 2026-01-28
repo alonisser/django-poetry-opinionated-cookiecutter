@@ -5,7 +5,7 @@ This is an opinionated Django REST API project using Poetry for dependency manag
 ## Project Overview
 
 - Poetry for dependency management
-- Django 5.2+ with Django REST Framework
+- Django 6+ with Django REST Framework
 - PostgreSQL as the default database
 - django-configurations for environment-based settings
 - AWS deployment support (ECS, S3) and Heroku deployment option
@@ -14,8 +14,8 @@ This is an opinionated Django REST API project using Poetry for dependency manag
 
 ## Key Technologies
 
-- **Backend**: Django 5.2+, Django REST Framework 3.16+
-- **Database**: PostgreSQL (via psycopg 3.2+)
+- **Backend**: Django 6+, Django REST Framework 3.16+
+- **Database**: PostgreSQL (via psycopg 3.3+)
 - **Package Management**: Poetry
 - **Configuration**: django-configurations 2.5+
 - **API Documentation**: drf-spectacular (OpenAPI/Swagger)
@@ -50,6 +50,32 @@ Keep plans brief and actionable.
 
 ## Python Coding Standards
 
+### Python Tooling
+
+**IMPORTANT**: This is a **poetry-based project** - always use `poetry run` prefix for all Python commands. Never use `uv`, `python`, or `python3` directly.
+
+```bash
+# FIRST: Verify dependencies are installed (run if tools like ruff are missing)
+poetry install
+
+# Verify poetry environment is working
+poetry run python --version
+
+# Check code with ruff
+poetry run ruff check .
+
+# Auto-fix issues with ruff
+poetry run ruff check . --fix
+
+# Format code with ruff
+poetry run ruff format
+
+# Verify Python syntax
+poetry run python -m py_compile <file.py>
+```
+
+**If a tool like `ruff` is "Command not found"**, run `poetry install` or `make init-dev` first.
+
 ### General
 - Prefer iteration and modularization over code duplication
 - Use descriptive variable names with auxiliary verbs (e.g., `is_active`, `has_permission`)
@@ -59,7 +85,7 @@ Keep plans brief and actionable.
 ### Python-Specific
 - Adhere to PEP 8 standards
 - Never return anonymous tuples as return type, prefer dataclasses or named tuples
-- Use type hints for all function/method signatures (arguments/parameters and return types)
+- MUST use type hints for all function/method signatures (arguments/parameters and return types)
 - Add docstrings to methods/files/classes explaining main functionality
 - Use application logic custom Exception classes instead of generic raise
 - Use lowercase with underscores for directories and files

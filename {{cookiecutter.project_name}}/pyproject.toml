@@ -7,23 +7,23 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = ">={{cookiecutter.python_version}},<{{cookiecutter.__max_python_version}}"
-Django = "^5.2"
+Django = "^6.0.1"
 django-configurations = "^2.5.1"
-dj-database-url = "^2.3.0"
+dj-database-url = "^3.1.0"
 djangorestframework = "^3.16.1"
 django-filter = "^25.2"
 django-extensions = "^4.1"
-django-import-export = "^4.3.13"
+django-import-export = "^4.4.0"
 django-storages = "^1.14.6"
-Pillow = "^11.3.0"
+Pillow = "^12.1.0"
 django-cors-headers = "^4.9.0"
 django-querycount = "^0.8.3"
-gunicorn = "^23.0.0"
+gunicorn = "^24.1.1"
 djangorestframework-simplejwt = "^5.5.1"
-psycopg = "^3.2.12"
+psycopg = "^3.3.2"
 drf-nested-routers = "^0.95.0"
-drf-spectacular = "^0.28.0"
-boto3 = ">=1.40.65"
+drf-spectacular = "^0.29.0"
+boto3 = ">=1.42.36"
 
 {%  if cookiecutter.heroku_app_name | length %}
 whitenoise = ">=6.10.0" #for heroku serving static files for admin
@@ -34,8 +34,8 @@ whitenoise = ">=6.10.0" #for heroku serving static files for admin
 
 [tool.poetry.dev-dependencies]
 
-pytest = "^8.4.2"
-ruff = "^0.13.1"
+pytest = "^9.0.2"
+ruff = "^0.14.14"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
