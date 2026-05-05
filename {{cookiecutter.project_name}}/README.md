@@ -18,7 +18,7 @@ We are using poetry to manage the projects dependencies.
 2. Get the code:    
 Clone this project    
    ```
-   git clone {{git_repo|default("still_missing", true)}}
+   git clone {{cookiecutter.git_repo|default("still_missing", true)}}
    ```
    
 
