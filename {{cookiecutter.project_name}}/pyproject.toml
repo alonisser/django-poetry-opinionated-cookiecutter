@@ -32,8 +32,7 @@ whitenoise = ">=6.10.0" #for heroku serving static files for admin
 {%  endif %}
 
 
-[tool.poetry.dev-dependencies]
-
+[tool.poetry.group.dev.dependencies]
 pytest = "^9.0.2"
 ruff = "^0.14.14"
 
