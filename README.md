@@ -60,3 +60,37 @@ docker-compose up --build
     ```shell
     pipx run cookiecutter https://github.com/alonisser/django-poetry-opinionated-cookiecutter
     ```
+
+## Running the tests
+
+The template ships with its own test suite (in `tests/`) that bakes the
+cookiecutter and verifies a generated project is sane. There are two tiers:
+
+* **Fast tests** – bake the template and assert it renders with no leftover
+  cookiecutter tags and that the post-gen hook behaves. No install or database
+  needed.
+* **Smoke test** (`smoke` marker) – bakes a project, runs `poetry install`, and
+  then `manage.py check` to prove the generated Django app boots without errors
+  and **without a database**. This one needs network access and Python 3.13+.
+
+Set up a virtualenv and install the test tooling:
+
+```shell
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements-dev.txt
+```
+
+Run everything:
+
+```shell
+pytest
+```
+
+Run only the fast tests (skip the slow install-and-run smoke test):
+
+```shell
+pytest -m "not smoke"
+```
+
+CI runs the full suite on every pull request (see
+`.github/workflows/test-template.yml`).

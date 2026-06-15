@@ -2,3 +2,5 @@
 *.pyc
 __pycache__
 /static
+.testvenv/
+.pytest_cache/
