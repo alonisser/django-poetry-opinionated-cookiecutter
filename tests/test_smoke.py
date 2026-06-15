@@ -19,12 +19,20 @@ pytestmark = pytest.mark.smoke
 
 @pytest.mark.skipif(shutil.which("poetry") is None, reason="poetry is not installed")
 def test_generated_app_passes_django_check(cookies):
-    result = cookies.bake(extra_context={"project_name": "smoke_project"})
+    # Bake against the interpreter running the tests so the generated project's
+    # python constraint (>=X.Y,<X.Y+1) always matches `poetry env use` below.
+    running_python = f"{sys.version_info.major}.{sys.version_info.minor}"
+    result = cookies.bake(
+        extra_context={
+            "project_name": "smoke_project",
+            "python_version": running_python,
+        }
+    )
     assert result.exit_code == 0, result.exception
     project = result.project_path
 
-    # Run poetry against the same interpreter that runs the tests (3.13+), and
-    # keep the virtualenv inside the baked project so it is cleaned up with it.
+    # Run poetry against that same interpreter, and keep the virtualenv inside
+    # the baked project so it is cleaned up with it.
     python_bin = os.environ.get("SMOKE_PYTHON", sys.executable)
     env = {**os.environ, "POETRY_VIRTUALENVS_IN_PROJECT": "1"}
 
