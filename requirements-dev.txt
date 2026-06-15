@@ -1,0 +1,4 @@
+# Tooling for testing the cookiecutter template itself (not the generated project).
+pytest>=9.0
+pytest-cookies>=0.7
+cookiecutter>=2.6
