@@ -18,6 +18,7 @@ from django.urls import path
 from django.contrib.auth.decorators import login_not_required
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from {{cookiecutter.__project_slug}} import views
@@ -27,6 +28,8 @@ admin.site.site_header = "{{cookiecutter.project_name}} admin site"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('health_check', views.healthcheck, name='healthcheck'),
+    path('robots.txt', login_not_required(TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+         name='robots'),
     path('api-token-auth/', login_not_required(TokenObtainPairView.as_view()), name='api-token-obtain-pair'),
     path('api-token-refresh/', login_not_required(TokenRefreshView.as_view()), name='api-token-refresh'),
 ]
